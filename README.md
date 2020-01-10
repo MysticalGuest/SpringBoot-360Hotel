@@ -1,4 +1,4 @@
-# SpringBoot-360Hotel
+﻿# SpringBoot-360Hotel
 Projects developed through self-study during university summer vacation
 Spring Boot project practice, necessary to quickly get started with Spring Boot development.
 Basic Spring Boot use cases!
@@ -12,3 +12,4 @@ Basic Spring Boot use cases!
 
 # 二、项目部署
 **过程：** 将项目部署到MyEclipse,运行启动类，进入浏览器访问地址 http://localhost:8081/DistinguishedQuality360Hotel/login 即出现登录界面。
+
