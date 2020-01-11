@@ -15,11 +15,11 @@ Basic Spring Boot use cases!
 
 
 # Ⅰ. Hotel Management System Website
-** Development environment: ** MyEclipse + maven + git + HBuilder
+**Development environment:** MyEclipse + maven + git + HBuilder
 
-** Software architecture: ** mysql + mybatis + springboot + easyui
+**Software architecture:** mysql + mybatis + springboot + easyui
 
-** Project description: ** The website of the hotel management system is a web project based on the springboot framework, a system for convenient management of hotel information. The business is processed in the form of web pages, and the database is used for data storage. To complete automated hotel business processing, including: invoice printing, guest information statistics, room management, consumption management, and sales statistics.
+**Project description:** The website of the hotel management system is a web project based on the springboot framework, a system for convenient management of hotel information. The business is processed in the form of web pages, and the database is used for data storage. To complete automated hotel business processing, including: invoice printing, guest information statistics, room management, consumption management, and sales statistics.
 
 # Ⅱ. Project Deployment
-** Process: ** Deploy the project to MyEclipse, run the startup class, enter the browser access address http://localhost:8081/DistinguishedQuality360Hotel/login, and the login interface appears.
+**Process:** Deploy the project to MyEclipse, run the startup class, enter the browser access address http://localhost:8081/DistinguishedQuality360Hotel/login, and the login interface appears.
