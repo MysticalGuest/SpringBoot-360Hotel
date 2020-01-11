@@ -21,5 +21,5 @@ Basic Spring Boot use cases!
 
 ** Project description: ** The website of the hotel management system is a web project based on the springboot framework, a system for convenient management of hotel information. The business is processed in the form of web pages, and the database is used for data storage. To complete automated hotel business processing, including: invoice printing, guest information statistics, room management, consumption management, and sales statistics.
 
-# Ⅱ, project deployment
+# Ⅱ. project deployment
 ** Process: ** Deploy the project to MyEclipse, run the startup class, enter the browser access address http://localhost:8081/DistinguishedQuality360Hotel/login, and the login interface appears.
