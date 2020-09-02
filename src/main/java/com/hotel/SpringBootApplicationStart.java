@@ -17,17 +17,16 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
-@SpringBootApplication// 标记当前类为springboot的启动类
-// @RestController ----@Controller+@requestMapping
+@SpringBootApplication
 @Controller
 @MapperScan("com.hotel.*")//注解所在的包
-
 public class SpringBootApplicationStart {
 	public static void main(String[] args) {
-		System.out.println("开始...myDemo1");
+		System.out.println("start...demo...");
 		SpringApplication.run(SpringBootApplicationStart.class, args);
-		System.out.println("结束...myDemo1");
+		System.out.println("end...demo...");
 	}
+	
 	@RequestMapping(value = "/init")
 	@ResponseBody
 	public String init() {
