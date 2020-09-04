@@ -17,6 +17,13 @@ public class Administrator implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Administrator(String AdmId, String aPassword, String limit) {
+		super();
+		this.AdmId = AdmId;
+		this.aPassword = aPassword;
+		this.limit = limit;
+	}
 
 	public Administrator(String AdmId, String aName, String aPassword, String aSex, String limit) {
 		super();
