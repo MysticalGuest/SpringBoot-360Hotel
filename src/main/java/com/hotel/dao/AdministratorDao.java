@@ -16,7 +16,7 @@ public interface AdministratorDao {
 	@Options(useGeneratedKeys = true, keyProperty = "AdmId")
 	int insert(Administrator administrator);
 
-	@Select("select * from administrator where AdmId=#{AdmId} and aPassword=#{aPassword}")
+	@Select("select * from administrator where AdmId=#{AdmId} and aPassword=#{aPassword} and `limit`=#{limit}")
 	Administrator login(Administrator administrator);
 
 	@Select("select * from administrator")
