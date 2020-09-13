@@ -12,86 +12,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<title>尊品360宾馆服务平台</title>
 		<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
-		<link rel="stylesheet" type="text/css" href="css/fontStyle.css"/>
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">    
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
+		<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/account.css"/>
 		
-		<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-		<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-		<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
-		
-		<script type="text/javascript" src="easyui/jquery.min.js"></script>
-		<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-		<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
-		<style type="text/css">
-			body{text-align: center;}
-			.main{width:77%;position:relative;margin:auto;}
-			#layer02 > div{float:left;position:relative;}
-			.layer02-data{font-family: "new york";position: absolute;width: auto;color: red;top: 45px;left: 65px;}
-			
-			.header{
-				height: 80px;
-				position: relative;
-				padding-top: 13px;
-				font-size: 36px;
-				color: black;
-				text-align: center;
-				background: url(img/chartHeader.png) top center no-repeat;
-				font-family: HYChaoJiZhanJiaW;
-			}
-			.header a.a-access{
-				position: absolute;
-				right: 3%;
-				top: -18%;
-			}
-			.button {
-				position: relative;
-				padding: 0.5em 1.5em;
-				border: none;
-				background-color: transparent;
-				cursor: pointer;
-				outline: none;
-				font-size: 18px;
-				margin: 1em 0.8em;
-			}
-			.button.type1 {
-				color: black;
-				font-family: HYChaoJiZhanJiaW;
-			}
-			.button.type1.type1::after, .button.type1.type1::before {
-				content: "";
-				display: block;
-				position: absolute;
-				width: 20%;
-				height: 20%;
-				border: 2px solid;
-				transition: all 0.6s ease;
-				border-radius: 2px;
-			}
-			.button.type1.type1::after {
-				bottom: 0;
-				right: 0;
-				border-top-color: transparent;
-				border-left-color: transparent;
-				border-bottom-color: #566473;
-				border-right-color: #566473;
-			}
-			.button.type1.type1::before {
-				top: 0;
-				left: 0;
-				border-bottom-color: transparent;
-				border-right-color: transparent;
-				border-top-color: #566473;
-				border-left-color: #566473;
-			}
-			.button.type1.type1:hover:after, .button.type1.type1:hover:before {
-				width: 100%;
-				height: 100%;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
+		<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		
 		<script type="text/javascript">
 			$(function(){
