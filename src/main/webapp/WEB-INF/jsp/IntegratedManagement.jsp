@@ -13,20 +13,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="content-type" content="text/html" charset="utf-8">
 	<title>尊品360宾馆管理系统</title>
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="css/fontStyle.css"/>
-	<link rel="stylesheet" type="text/css" href="css/CustomerInfoStyle.css"/>
-	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
-	<script type="text/javascript" src="easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/customer-info-style.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
   </head>
   <body class="easyui-layout">
    	<!--上-->
@@ -67,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var hourRoomPrice=document.getElementById('hourRoomPrice').value;
 					if(hourRoomPrice!=""){
 						$.ajax({
-							url: '../DistinguishedQuality360Hotel/administrator/hourRoomPrice',
+							url: 'administrator/hourRoomPrice',
 							type: 'post',
 							data: {'hourRoomPrice':hourRoomPrice},
 							// dataType:'json',
@@ -79,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							},
 							error:function(xhr,type,errorThrown){
 								$.messager.alert('提示','修改失败！','info',
-									function(){location.href='../DistinguishedQuality360Hotel/administrator/IntegratedManagement'});
+									function(){location.href='administrator/IntegratedManagement'});
 								console.log(errorThrown);
 							}
 						});
@@ -152,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					//由于每次在调用saverow(target)函数时,保存后后台数据刷新了,但前台数据还是上一次的数据,所以这里我用到ajax
 					$.ajax({
 						// 我是从@RequestMapping(value="/IntegratedManagement")中拿的当前数据库最新数据
-						url: '../DistinguishedQuality360Hotel/administrator/IntegratedManagement',
+						url: 'administrator/IntegratedManagement',
 						type: 'post',
 						data: {},
 						dataType:'json',
@@ -223,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var aPassword=row.aPassword;
 					if (row){
 						$.ajax({
-	                    	url: '../DistinguishedQuality360Hotel/administrator/ResetFrontInfo',
+	                    	url: 'administrator/ResetFrontInfo',
 	                    	type: 'post',
 	                    	data: {'admId':admId,'aName':aName,'aPassword':aPassword,'aSex':selectSex},
 							dataType:'json',
@@ -237,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	},
 							error:function(xhr,type,errorThrown){
 								$.messager.alert('提示','保存失败！','info',
-									function(){location.href='../DistinguishedQuality360Hotel/administrator/IntegratedManagement'});
+									function(){location.href='administrator/IntegratedManagement'});
 								console.log(errorThrown);
 							}
 	                	});
@@ -295,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					//如果行选中
 					if (selectedItems){
 						$.ajax({
-			            	url: '../DistinguishedQuality360Hotel/administrator/ResetExpense',
+			            	url: 'administrator/ResetExpense',
 			            	type: 'post',
 			            	data: {'kind':kind,'price':price},
 							dataType:'json',
@@ -309,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            	},
 							error:function(xhr,type,errorThrown){
 								$.messager.alert('提示','保存失败！','info',
-									function(){location.href='../DistinguishedQuality360Hotel/administrator/IntegratedManagement'});
+									function(){location.href='administrator/IntegratedManagement'});
 								console.log(errorThrown);
 							}
 			        	});
