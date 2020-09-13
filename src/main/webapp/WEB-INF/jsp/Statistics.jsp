@@ -11,21 +11,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<base href="<%=basePath%>">
 		
 		<meta http-equiv="content-type" content="text/html" charset="utf-8">
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">    
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
 		
 		<title>尊品360宾馆服务平台</title>
 		<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
 		<link rel="stylesheet" href="css/chart.css">
-		<link rel="stylesheet" type="text/css" href="css/fontStyle.css"/>
-		<script src="easyui/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
+		<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
 		<script src="js/echarts.min.js"></script>
 		<script src="js/chart.js"></script>
 		<style type="text/css">
-			.font-title{font-weight: 70;font-family: JY;}
+			.font-title{font-weight: 70;font-family: webfont;}
 		</style>
 	</head>
 	<body>
