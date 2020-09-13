@@ -11,20 +11,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <title>尊品360宾馆服务平台</title>
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
-	<link rel="stylesheet" type="text/css" href="css/fontStyle.css"/>
-	<link rel="stylesheet" type="text/css" href="css/homeStyle.css"/>
-	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
-	<script type="text/javascript" src="easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-    <style type="text/css">
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/home-style.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		
   </head>
   
@@ -33,8 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="auto-box">
 	<div class="main-box">
 		<div class="index-tit">
-		<div style="position:absolute; left:30%; top:3%;">
-			<font style="font-family:HYChaoJiZhanJiaW;font-size:50px;color: black;">
+		<div style="position:absolute; left:30%; top:10px;">
+			<font style="font-family:webfont;font-size:50px;color: black;">
 				尊品360宾馆服务平台
 			</font>
 		</div>
