@@ -8,14 +8,13 @@
   <description/>
   <properties>
   	<webVersion>3.1</webVersion>
-       <!-- 工程打包的编码方式 -->
+    <!-- 工程打包的编码方式 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-      <!-- jdk版本 -->
     <java.version>1.8</java.version>
   </properties>
   
-  <!--  springboot依赖 ，当前项目依赖的项目-->
+  <!-- springboot依赖 ，当前项目依赖的项目-->
   <parent>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-parent</artifactId>
