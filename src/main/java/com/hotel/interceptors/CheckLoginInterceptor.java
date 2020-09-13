@@ -9,6 +9,33 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
 public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
+	
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+		System.out.println("进入了权限拦截器...");
+		System.out.println("IP:" + request.getRemoteAddr());
+		
+		request.setCharacterEncoding("UTF-8");
+	 	response.setCharacterEncoding("UTF-8");
+	 	response.setContentType("text/html;charset=UTF-8");
+	 	
+	 	Object obj =request.getSession().getAttribute("thisadministrator");
+	 	System.out.println("obj:" + obj);
+	 	
+//	 	Thread.sleep(6000);
+	 	
+	 	if (obj == null) {
+//		 	request.setAttribute( "intercept", "true" );
+	 		//未登陆，返回登陆页面
+		 	request.getRequestDispatcher( "/login" ).forward(request,response);
+		 	return false;
+	 	}
+	 	else {
+	 		//已登陆，放行请求
+	 		return true;
+	 	}
+	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
@@ -20,25 +47,6 @@ public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		super.postHandle(request, response, handler, modelAndView);
-	}
-
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		System.out.println("进入了权限拦截器。。。");
-		System.out.println("IP:" + request.getRemoteAddr());
-		/*
-		 * request.setCharacterEncoding("UTF-8");
-		 * response.setCharacterEncoding("UTF-8");
-		 * response.setContentType("text/html;charset=UTF-8");
-		 * System.out.println("IP:" + request.getRemoteAddr()); Object obj =
-		 * request.getSession().getAttribute("user"); if (obj == null) {
-		 * PrintWriter out = response.getWriter(); out.print("<script>");
-		 * out.print("alert('您还没有登录！！！');");
-		 * out.print("location.href='../login.jsp';"); out.print("</script>");
-		 * return false; } else { return true; }
-		 */
-		return true;
 	}
 
 }
