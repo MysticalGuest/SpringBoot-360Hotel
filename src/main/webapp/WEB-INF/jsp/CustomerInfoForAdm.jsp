@@ -13,20 +13,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="content-type" content="text/html" charset="utf-8">
 	<title>尊品360宾馆管理系统</title>
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="css/fontStyle.css"/>
-	<link rel="stylesheet" type="text/css" href="css/CustomerInfoStyle.css"/>
+	<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/customer-info-style.css"/>
 	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
-	<script type="text/javascript" src="easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
   </head>
   
   <body class="easyui-layout">
