@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Bill implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	private String roomNum;
 	private String inTime;
@@ -24,7 +25,6 @@ public class Bill implements Serializable{
 
 	public Bill() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Bill(String roomNum, String inTime) {
@@ -133,11 +133,11 @@ public class Bill implements Serializable{
 	public String toString() {
 		//解决时间.0问题
 		SimpleDateFormat myFmt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
 		Date date = null;
 		try {
 			date = myFmt.parse(inTime);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String inDate = myFmt.format(date);
