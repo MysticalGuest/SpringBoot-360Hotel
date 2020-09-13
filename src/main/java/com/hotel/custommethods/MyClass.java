@@ -81,7 +81,10 @@ public class MyClass {
 					+myParseInt(billList.get(i).getWLJJDB())*priceList.get("WLJJDB");
 			
 			//为解决java.math.BigDecimal cannot be cast to java.lang.Integer问题
-			//将取出的数据转为String型,然后再转为int型
+			//将取出的数据转为String型，然后再转为int型
+			System.out.println(billList.get(i).getInTime().toString());
+			System.out.println(jsonCharge.get(billList.get(i).getInTime().toString()));
+			System.out.println(jsonCharge);
 			sumRoomCharge = Integer.parseInt(String.valueOf(jsonCharge.get(billList.get(i).getInTime().toString())));
 			
 			if(i>0){
