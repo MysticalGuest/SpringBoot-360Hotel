@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
 	<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
 	<link rel="stylesheet" type="text/css" href="css/customer-info-style.css"/>
-	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+	
 	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
 	<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
