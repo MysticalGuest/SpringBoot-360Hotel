@@ -13,12 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="content-type" content="text/html" charset="utf-8">
 	<title>尊品360宾馆管理系统</title>
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
-	<link rel="stylesheet" type="text/css" href="css/BillButton.css"/>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
+	<link rel="stylesheet" type="text/css" href="css/bill-button.css"/>
 	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
