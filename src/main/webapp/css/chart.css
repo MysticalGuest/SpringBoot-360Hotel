@@ -27,7 +27,7 @@ body{
 	/* color: #000000; */
     text-align: center;
     background: url(../img/chartHeader.png) top center no-repeat;
-	font-family: HYChaoJiZhanJiaW;
+	font-family: webfont;
 }
 .header a.a-access{
 	position: absolute;
@@ -235,7 +235,7 @@ body{
 }
 .button.type1 {
   color: black;
-  font-family: HYChaoJiZhanJiaW;
+  font-family: webfont;
 }
 .button.type1.type1::after, .button.type1.type1::before {
   content: "";
