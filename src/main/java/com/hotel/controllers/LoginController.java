@@ -33,10 +33,11 @@ public class LoginController {
 	
 	@PostMapping("/login_verification")
 	@ResponseBody
-	public boolean index_new(@RequestParam(value = "AdmId") String AdmId, 
+	public boolean index_new(
+			@RequestParam(value = "AdmId") String AdmId, 
 			@RequestParam(value = "aPassword") String aPassword,
-			@RequestParam(value = "limit", required = false) String check,
-			HttpSession session) {
+			@RequestParam(value = "limit", required = false) String check) {
+		
 		System.out.println(AdmId);
 		System.out.println(aPassword);
 		System.out.println(check);
@@ -62,7 +63,8 @@ public class LoginController {
 	}
 	
 	@PostMapping("/passForm")
-	public String passForm(@RequestParam(value = "AdmId") String AdmId, 
+	public String passForm(
+			@RequestParam(value = "AdmId") String AdmId, 
 			@RequestParam(value = "aPassword") String aPassword,
 			@RequestParam(value = "limit", required = false) String limit,
 			HttpSession session) {
@@ -70,7 +72,7 @@ public class LoginController {
 		Administrator administrator = new Administrator(AdmId, aPassword, limit);
 		Administrator thisadministrator = administratorService.login(administrator);
 		session.setAttribute("thisadministrator", thisadministrator);
-		return "redirect://"+thisadministrator.getlimit()+"/Home";
+		return "redirect:/" + thisadministrator.getlimit() + (thisadministrator.getlimit().equals("front")? "/Home": "/HomeForAdm");
 //		if (limit.equals("front")) {
 //			return "redirect:/front/Home";
 //		} else {
