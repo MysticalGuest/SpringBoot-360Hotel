@@ -22,14 +22,12 @@ public class SpringbootConfig extends WebMvcConfigurerAdapter {
 	// 注册拦截器
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/login");
+		registry.addInterceptor(checkLoginInterceptor).excludePathPatterns("/login");
+		// 前台所有界面拦截
 //		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/*");
-//		registry.addInterceptor(checkLoginInterceptor).excludePathPatterns("/login");
-		//前台所有界面拦截
-		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/Home");
-		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/Bill");
-		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/ApartmentManagement");
-		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/AccountOfPerDay");
-		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/Statistics");
+		// 管理员所有界面拦截
+//		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/administrator/*");
 	}
 	
 	@Bean
