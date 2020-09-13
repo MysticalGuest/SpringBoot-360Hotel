@@ -13,10 +13,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="content-type" content="text/html" charset="utf-8">
 	<title>尊品360宾馆管理系统</title>
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
+	
 	<link rel="stylesheet" type="text/css" href="css/bill-button.css"/>
 	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
+	
 	<script type="text/javascript" src="easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -283,7 +285,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				else{
 					$.ajax({
-							url: '../DistinguishedQuality360Hotel/front/Bill',
+							url: 'front/Bill',
 							data:{"paymentMethod":paymentMethod,"cardID":cardID,"cName":cName,"chargeAndDeposit":chargeAndDeposit,"roomNum":roomNum},
 							dataType:'json',//服务器返回json格式数据
 							type:'post',//HTTP请求类型
