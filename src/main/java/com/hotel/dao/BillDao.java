@@ -1,5 +1,6 @@
 package com.hotel.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,11 +55,11 @@ public interface BillDao {
 			+ "from bill")
 	Map<String, Integer> getPerKindsSum();
 	
-	@Select("select inTime,sum(price) sumPrice from bill,apartment "
+	@Select("select DATE_FORMAT(inTime,'%Y-%m-%d %T') as inTime, sum(price) sumPrice from bill, apartment "
 			+ "where bill.roomNum=apartment.roomNum and date(inTime)=curdate() group by inTime")
 	List<Map<String, Integer>> getRoomChargePerCustomerPerDay();
 	
-	@Select("select inTime,sum(price) sumPrice from bill,apartment "
+	@Select("select DATE_FORMAT(inTime,'%Y-%m-%d %T') as inTime, sum(price) sumPrice from bill, apartment "
 			+ "where bill.roomNum=apartment.roomNum group by inTime")
 	List<Map<String, Integer>> getRoomChargePerCustomer();
 	
