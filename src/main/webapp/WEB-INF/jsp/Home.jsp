@@ -9,6 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 		<base href="<%=basePath%>">
+		
+		<meta http-equiv="content-type" content="text/html" charset="utf-8">
 		<title>尊品360宾馆服务平台</title>
 		<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
 		<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
