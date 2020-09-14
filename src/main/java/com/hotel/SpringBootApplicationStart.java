@@ -35,14 +35,16 @@ public class SpringBootApplicationStart {
 	}
 	
 	
-	// 配置错误页面---Lambda表达式
+	// 配置错误页面
+	// 通过EmbeddedServletContainerCustomizer接口调优Tomcat，配置嵌入式Servlet容器
 	@Bean
 	public EmbeddedServletContainerCustomizer containerCustomizer() {
+		// Lambda表达式
 		return (container -> {
-			ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/401.html");
 			ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
 			ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html");
-			container.addErrorPages(error401Page, error404Page, error500Page);
+			ErrorPage error505Page = new ErrorPage(HttpStatus.HTTP_VERSION_NOT_SUPPORTED, "/505.html");
+			container.addErrorPages(error404Page, error500Page, error505Page);
 		});
 	}
 	
