@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
+	
 	<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -100,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					
 					$.ajax({
-						url: '../DistinguishedQuality360Hotel/commonOperation/SearchApartmentManagement',
+						url: 'commonOperation/SearchApartmentManagement',
 						type: 'post',
 						data:{'roomNum':roomNum,'price':selectPrice,'state':state},
 						dataType:'json',
@@ -125,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						},
 						error:function(xhr,type,errorThrown){
 							$.messager.alert('提示','搜索失败！','info',
-								function(){location.href='../DistinguishedQuality360Hotel/administrator/ApartmentManagement'});
+								function(){location.href='administrator/ApartmentManagement'});
 							console.log(errorThrown);
 						}
 					});
@@ -140,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#price").combogrid("setValue","");
 					
 					$.ajax({
-						url: '../DistinguishedQuality360Hotel/commonOperation/SearchApartmentManagement',
+						url: 'commonOperation/SearchApartmentManagement',
 						type: 'post',
 						data:{'roomNum':"",'price':"",'state':""},
 						dataType:'json',
@@ -165,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						},
 						error:function(xhr,type,errorThrown){
 							$.messager.alert('提示','显示失败！','info',
-								function(){location.href='../DistinguishedQuality360Hotel/administrator/ApartmentManagement'});
+								function(){location.href='administrator/ApartmentManagement'});
 							console.log(errorThrown);
 						}
 					});
@@ -194,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				else{
 					$.ajax({
-						url: '../DistinguishedQuality360Hotel/commonOperation/checkOutChecked',
+						url: 'commonOperation/checkOutChecked',
 						type: 'post',
 						data: {'flag':flag,'strRoom':strRoom},
 						dataType:'json',
@@ -221,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						},
 						error:function(xhr,type,errorThrown){
 							$.messager.alert('提示','退房失败！','info',
-								function(){location.href='../DistinguishedQuality360Hotel/administrator/ApartmentManagement'});
+								function(){location.href='administrator/ApartmentManagement'});
 							console.log(errorThrown);
 						}
 					});
@@ -231,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	function allCheckOut(){
 	    		var flag="front";
 				$.ajax({
-                   	url: '../DistinguishedQuality360Hotel/commonOperation/allCheckOut',
+                   	url: 'commonOperation/allCheckOut',
                    	type: 'post',
                    	data: {'flag':flag},
 					dataType:'json',
@@ -256,7 +257,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    	},
 					error:function(xhr,type,errorThrown){
 						$.messager.alert('提示','退房失败！','info',
-							function(){location.href='../DistinguishedQuality360Hotel/administrator/ApartmentManagement'});
+							function(){location.href='administrator/ApartmentManagement'});
 						console.log(errorThrown);
 					}
                	});
@@ -340,7 +341,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var roomNum=row.roomNum;
 					if (row){
 						$.ajax({
-	                    	url: '../DistinguishedQuality360Hotel/commonOperation/checkOut',
+	                    	url: 'commonOperation/checkOut',
 	                    	type: 'post',
 	                    	data: {'roomNum':roomNum,'flag':flag},
 							dataType:'json',
@@ -367,7 +368,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	},
 							error:function(xhr,type,errorThrown){
 								$.messager.alert('提示','退房失败！','info',
-									function(){location.href='../DistinguishedQuality360Hotel/administrator/ApartmentManagement'});
+									function(){location.href='administrator/ApartmentManagement'});
 								console.log(errorThrown);
 							}
 	                	});
