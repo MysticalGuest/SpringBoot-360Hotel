@@ -72,11 +72,15 @@ a {
 .zoomin {
 	animation-name: zoomin
 }
+td{
+	padding: 2px;
+}
+
 @keyframes zoomin {
 0% {
-opacity:0;
-transform:scale(.3)
+	opacity:0;
+	transform:scale(.3)
 }
 50% {
-opacity:1
+	opacity:1
 }
