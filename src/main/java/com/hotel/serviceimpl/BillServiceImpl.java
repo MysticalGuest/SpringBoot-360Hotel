@@ -1,6 +1,5 @@
 package com.hotel.serviceimpl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +14,6 @@ import com.hotel.service.IBillService;
 public class BillServiceImpl implements IBillService {
 	@Autowired
 	private BillDao billDao;
-	
-//	@Override
-//	public Bill login(Bill bill) {
-//		return null;
-//	}
 	
 	@Override
 	public int insert(Bill bill) {
