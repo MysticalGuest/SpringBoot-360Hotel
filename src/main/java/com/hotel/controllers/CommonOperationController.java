@@ -54,7 +54,8 @@ public class CommonOperationController {
 	
 	//顾客信息统计界面搜索功能
 	@PostMapping("/SearchCustomerInfo")
-	public String SearchCustomerInfo(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ParseException, IOException{
+	@ResponseBody
+	public String SearchCustomerInfo(HttpServletRequest request) {
 		LOG.info("commonOperation/SearchCustomerInfo...");
 		Customer customer = new Customer();
 		String inTime = request.getParameter("datetime");
@@ -68,28 +69,29 @@ public class CommonOperationController {
 		customer.setroomNum(roomNum);
 		
 		List<Customer> customerList = customerServiceimpl.doSearch(customer);
-		response.getWriter().print(customerList);
-		return null;
+
+		return customerList.toString();
 	}
 	
-	//顾客信息统计界面显示全部功能
+	// 顾客信息统计界面显示全部功能
 	@PostMapping("/ShowAllCustomerInfo")
-	public String ShowAllCustomerInfo(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ParseException, IOException{
+	@ResponseBody
+	public String ShowAllCustomerInfo() {
 		LOG.info("commonOperation/ShowAllCustomerInfo...");
 		List<Customer> customerList = customerServiceimpl.getAllCustomer();
-		response.getWriter().print(customerList);
-		return null;
+		return customerList.toString();
 	}
 	
-	//客房管理搜索操作和显示全部操作
+	// 客房管理搜索操作和显示全部操作
 	@PostMapping("/SearchApartmentManagement")
-	public String SearchApartmentManagement(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+	@ResponseBody
+	public String SearchApartmentManagement(HttpServletRequest request) {
 		LOG.info("commonOperation/SearchApartmentManagement...");
 		Apartment apartment = new Apartment();
 		String roomNum = request.getParameter("roomNum");
 		
 		apartment.setroomNum(roomNum);
-		//getParameter("")方法返回值为String类型
+		// getParameter("")方法返回值为String类型
 		String price = request.getParameter("price");
 		LOG.info("priceStr:"+price);
 		
@@ -130,17 +132,17 @@ public class CommonOperationController {
 		else{
 			apartmentList = apartmentServiceimpl.getAllApartment();
 		}
-		response.getWriter().print(apartmentList);
-		return null;
+
+		return apartmentList.toString();
 	}
 	
-	//客房管理表格中的退房操作
+	// 客房管理表格中的退房操作
 	@PostMapping("/checkOut")
 	@ResponseBody
 	public List<Apartment> checkOut(HttpServletRequest request) {
 		LOG.info("commonOperation/checkOut...");
 		Apartment thisapartment = new Apartment();
-		//区别前端界面是‘前台客房管理’还是‘管理员客房管理’
+		// 区别前端界面是‘前台客房管理’还是‘管理员客房管理’
 		String flag = request.getParameter("flag");
 		System.out.println(flag);
 		String roomNum = request.getParameter("roomNum");
@@ -150,20 +152,21 @@ public class CommonOperationController {
 		apartmentServiceimpl.checkOut(thisapartment);
 		
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
-//		response.getWriter().print(apartmentList);
 		return apartmentList;
 	}
 	
-	//客房管理多选退房操作
+	// 客房管理多选退房操作
 	@PostMapping("/checkOutChecked")
-	public String checkOutChecked(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+	@ResponseBody
+	public String checkOutChecked(HttpServletRequest request) {
 		LOG.info("checkOutChecked...");
-		//区别前端界面是‘前台客房管理’还是‘管理员客房管理’
+		// 区别前端界面是‘前台客房管理’还是‘管理员客房管理’
 		String flag = request.getParameter("flag");
 		System.out.println(flag);
 		String strRoom = request.getParameter("strRoom");
 		System.out.println(strRoom);
 		String[] roomArray = strRoom.split(","); // 用,分割
+		
 		for(String roomNum:roomArray){
 			System.out.println(roomNum);
 			LOG.info("CheckOut...");
@@ -173,26 +176,27 @@ public class CommonOperationController {
 		}
 		
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
-		response.getWriter().print(apartmentList);
-		return null;
+
+		return apartmentList.toString();
 	}
 	
-	//客房管理全部退房操作
+	// 客房管理全部退房操作
 	@PostMapping("/allCheckOut")
-	public String allCheckOut(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+	@ResponseBody
+	public String allCheckOut(HttpServletRequest request) {
 		LOG.info("allCheckOut...");
-		//区别前端界面是‘前台客房管理’还是‘管理员客房管理’
+		// 区别前端界面是‘前台客房管理’还是‘管理员客房管理’
 		String flag = request.getParameter("flag");
-		System.out.println(flag);
+//		System.out.println(flag);
 		apartmentServiceimpl.allCheckOut();
 		
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
-		response.getWriter().print(apartmentList);
-		return null;
+
+		return apartmentList.toString();
 	}
 	
-	//账目统计界面
-	@SuppressWarnings("deprecation")//为解决date.getDay()The method getDate() from the type Date is deprecated
+	// 账目统计界面
+	@SuppressWarnings("deprecation")// 为解决date.getDay()The method getDate() from the type Date is deprecated
 	@GetMapping("/Statistics")
 	public String Statistics(HttpServletRequest request,HttpSession session) throws ParseException {
 		LOG.info("commonOperation/Statistics...");
@@ -203,30 +207,29 @@ public class CommonOperationController {
 		
 		//其他消费单价列表
 		List<Expense> expenseList = expenseServiceimpl.getAllKinds();
-//		System.out.println("expenseList:"+expenseList);
+
 		Map<String, Integer> priceList = new HashMap<String, Integer>();
 		for (int i = 0; i < expenseList.size(); i++){
 			//以下获得方法获得的都是价格
 			priceList.put(expenseList.get(i).getKinds(), expenseList.get(i).getPrice());
 		}
-//		System.out.println("priceList:"+priceList);
 		
 		
 		/***********************
 			***===周营业额比较===**
 			***********************/
-		//获得本周内bill账单
+		// 获得本周内bill账单
 		List<Map<String, Integer>> billThisWeekList = billServiceimpl.getTurnoverPerDayThisWeek();
 		System.out.println("billThisWeekList:"+billThisWeekList);
 		System.out.println("length:"+billThisWeekList.size());
 		
-		//将计算后的账单存起来
+		// 将计算后的账单存起来
 		Map<String, Integer> profitThisWeekList = MyClass.getExpenseForMapList(billThisWeekList, priceList);
 		System.out.println("profitThisWeekList:"+profitThisWeekList);
 		
-		//将一周内日期存起来,与数据库取出来的对比
+		// 将一周内日期存起来,与数据库取出来的对比
 		List<String> dateList = new ArrayList<String>();
-		//获得一周内7天日期
+		// 获得一周内7天日期
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
         // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了  
@@ -247,12 +250,12 @@ public class CommonOperationController {
         }
         System.out.println("dateList:"+dateList);
         
-        //获取每天的利润,并以这种[]形式存起来
+        // 获取每天的利润,并以这种[]形式存起来
         List<Integer> profitPerDayListThisWeek = new ArrayList<Integer>();
-        //考虑到极端情况,某天的营业额为0,数据库不会有这天的记录,所以我要判断,将要传到前台的这天的数据置0,遍历本周内所有日期dateList,与数据库对比
+        // 考虑到极端情况,某天的营业额为0,数据库不会有这天的记录,所以我要判断,将要传到前台的这天的数据置0,遍历本周内所有日期dateList,与数据库对比
         for(int i = 0; i < dateList.size(); i++){
         	if(profitThisWeekList.get(dateList.get(i))==null){
-        		//极端情况,某天的营业额为0,数据库不会有这天的记录,我就加上记录,因为前台统计图表界面需要
+        		// 极端情况,某天的营业额为0,数据库不会有这天的记录,我就加上记录,因为前台统计图表界面需要
         		profitPerDayListThisWeek.add(0);
         	}
         	else{
@@ -260,21 +263,21 @@ public class CommonOperationController {
         	}
         }
         System.out.println("profitPerDayListThisWeek："+profitPerDayListThisWeek);
-        //将本周每天营业额传到前台
+        // 将本周每天营业额传到前台
         request.setAttribute("profitPerDayListThisWeek", profitPerDayListThisWeek);
         
-        //获得上周bill账单
+        // 获得上周bill账单
 		List<Map<String, Integer>> billLastWeekList = billServiceimpl.getTurnoverPerDayLastWeek();
 		System.out.println("billThisWeekList:"+billLastWeekList);
 		System.out.println("length:"+billLastWeekList.size());
 		
-		//获得上周每一天
+		// 获得上周每一天
 		cal = Calendar.getInstance();
-		//调整到上周
+		// 调整到上周
         cal.add(Calendar.WEDNESDAY, -1);
-        //调整到上周1
+        // 调整到上周1
         cal.set(Calendar.DAY_OF_WEEK, 2);
-        //将刚才存本周日期的列表变量清空来存上周日期
+        // 将刚才存本周日期的列表变量清空来存上周日期
         dateList.clear();
         for (int i = 0; i < 7; i++) {
         	String tempDate = sdf.format(cal.getTime());
@@ -283,15 +286,15 @@ public class CommonOperationController {
         } 
         System.out.println("dateLastWeekList:"+dateList);
         
-        //将计算后的账单存起来
+        // 将计算后的账单存起来
       	Map<String, Integer> profitLastWeekList = MyClass.getExpenseForMapList(billLastWeekList, priceList);
 		System.out.println("profitLastWeekList:"+profitLastWeekList);
-		//获取每天的利润,并以这种[]形式存起来
+		// 获取每天的利润,并以这种[]形式存起来
         List<Integer> profitPerDayListLastWeek = new ArrayList<Integer>();
-        //考虑到极端情况,某天的营业额为0,数据库不会有这天的记录,所以我要判断,将要传到前台的这天的数据置0,遍历本周内所有日期dateList,与数据库对比
+        // 考虑到极端情况,某天的营业额为0,数据库不会有这天的记录,所以我要判断,将要传到前台的这天的数据置0,遍历本周内所有日期dateList,与数据库对比
         for(int i = 0; i < dateList.size(); i++){
         	if(profitLastWeekList.get(dateList.get(i))==null){
-        		//极端情况,某天的营业额为0,数据库不会有这天的记录,我就加上记录,因为前台统计图表界面需要
+        		// 极端情况,某天的营业额为0,数据库不会有这天的记录,我就加上记录,因为前台统计图表界面需要
         		profitPerDayListLastWeek.add(0);
         	}
         	else{
@@ -299,7 +302,7 @@ public class CommonOperationController {
         	}
         }
         System.out.println("profitPerDayListLastWeek："+profitPerDayListLastWeek);
-        //将本周每天营业额传到前台
+        // 将本周每天营业额传到前台
         request.setAttribute("profitPerDayListLastWeek", profitPerDayListLastWeek);
         /***********************
 			***===周营业额比较===结束**
@@ -313,11 +316,11 @@ public class CommonOperationController {
 		System.out.println("billLastMonthList:"+billLastMonthList);
 		System.out.println("billLastMonthListSize:"+billLastMonthList.size());
 		
-		//将计算后的账单存起来
+		// 将计算后的账单存起来
       	Map<String, Integer> profitLastMonthList = MyClass.getExpenseForMapList(billLastMonthList, priceList);
 		System.out.println("profitLastMonthList:"+profitLastMonthList);
 		
-		//得到billLastMonthList里面的日期,然后与一个月分成的1~7,8~15,16~23,24~31时间对比,计算出每个时间段内的营业额
+		// 得到billLastMonthList里面的日期,然后与一个月分成的1~7,8~15,16~23,24~31时间对比,计算出每个时间段内的营业额
 		SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
 		int profitOfFirstWeek=0;
 		int profitOfSecondWeek=0;
