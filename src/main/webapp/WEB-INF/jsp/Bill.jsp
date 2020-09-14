@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="forRoom" id="forRoom" type="hidden" />
 					<!--房号树形下拉框-->	
 					<script>
-						var dataROOM=<%=session.getAttribute("apartmentList")%>;
+						var dataROOM=<%=request.getAttribute("apartmentList")%>;
 						$(function(){
 							$("#roomSelect").combogrid({
 								data: dataROOM,
@@ -223,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				//根据房间combogrid输出房价
 				var type=$("input[name='roomType']:checked").val();
-				var data=<%=session.getAttribute("apartmentList")%>;
+				var data=<%=request.getAttribute("apartmentList")%>;
 				var hourRoomPrice=<%=request.getAttribute("hourRoomPrice")%>;
 				var price=0;
 				for(var i=0;i<arr.length; i++){
