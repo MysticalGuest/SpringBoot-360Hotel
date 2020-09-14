@@ -191,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 				
 				<script>
-					var jsondata=<%=session.getAttribute("customerList")%>;
+					var jsondata=<%=request.getAttribute("customerList")%>;
 					//对‘房间’列换行
 					function linefeed(value,row,index) {
 					    return "<div style='width=250px;word-break:break-all;word-wrap:break-word;white-space:pre-wrap;'>"
