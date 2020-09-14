@@ -1,7 +1,5 @@
 package com.hotel.controllers;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -18,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,8 +30,6 @@ import com.hotel.entity.Bill;
 //import com.alibaba.fastjson.JSONArray;
 //import com.alibaba.fastjson.JSONObject;
 import net.sf.json.JSONObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 //import com.github.pagehelper.PageHelper;
 //import com.github.pagehelper.PageInfo;
 //import com.hotel.serviceimpl.AdministratorServiceImpl;
@@ -62,20 +55,20 @@ public class FrontController {
 	@Autowired
 	private ExpenseServiceImpl expenseServiceimpl;
 	
-	//首页界面
+	// 首页界面
 	@GetMapping("/Home")
-	public String Home(HttpSession session) throws JsonProcessingException{
+	public String Home() {
 		LOG.info("front/Home...");
 		return "Home";
 	}
 	
-	//顾客信息管理界面
+	// 顾客信息管理界面
 	@GetMapping("/CustomerInfoForFront")
 	public String CustomerInfoForFront(HttpServletRequest request,HttpSession session) {
 		LOG.info("front/CustomerInfoForFront...");
 		List<Customer> customerList = customerServiceimpl.getAllCustomer();
-		session.setAttribute("customerList", customerList);
-		System.out.println("customerList:"+customerList);
+		request.setAttribute("customerList", customerList);
+
 		return "CustomerInfoForFront";
 	}
 	
@@ -85,7 +78,7 @@ public class FrontController {
 		LOG.info("front/Bill...");
 		//房号下拉框
 		List<Apartment> apartmentList = apartmentServiceimpl.getSpareApartment();
-		session.setAttribute("apartmentList", apartmentList);
+		request.setAttribute("apartmentList", apartmentList);
 		
 		//钟点房房价
 		int hourRoomPrice = expenseServiceimpl.getHourRoom();
@@ -95,8 +88,8 @@ public class FrontController {
 	
 	//发票打印后接收前台数据数据
 	@PostMapping("/Bill")
-//	@ResponseBody
-	public String BillPOST(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+	@ResponseBody
+	public List<Apartment> BillPOST(HttpServletRequest request) {
 		LOG.info("front/BillPOST...");
 		Customer customer = new Customer();
 		//获取当前时间
@@ -149,29 +142,28 @@ public class FrontController {
 			apartmentServiceimpl.checkIn(thisapartment);
 			System.out.println(thisapartment);
 		}
-		System.out.println(customer);
+
 		customerServiceimpl.insert(customer);
 		for(String roomNum:roomArray){
-			//对每个开出的房间进行bill登记
+			// 对每个开出的房间进行bill登记
 			LOG.info("recordBill...");
 			Bill bill = new Bill();
 			bill.setRoomNum(roomNum);
 			bill.setInTime(strDate);
 			billServiceimpl.insert(bill);
 		}
-		//房号树形下拉框
+		// 房号树形下拉框
 		apartmentList = apartmentServiceimpl.getSpareApartment();
-		response.getWriter().print(apartmentList);
-//		request.setAttribute("apartmentList", apartmentList);
-		return null;
+
+		return apartmentList;
 	}
 	
-	//客房管理界面
+	// 客房管理界面
 	@GetMapping("/ApartmentManagement")
-	public String ApartmentManagement(HttpSession session) throws JsonProcessingException {
+	public String ApartmentManagement(HttpServletRequest request) {
 		LOG.info("front/ApartmentManagement...");
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
-		session.setAttribute("apartmentList", apartmentList);
+		request.setAttribute("apartmentList", apartmentList);
 		System.out.println("apartmentList:"+apartmentList);
 		
 		//房价搜索框
@@ -184,17 +176,17 @@ public class FrontController {
 			aPrice.put("num",i+1);
 			priceJSON.add(aPrice);
 		}
-		ObjectMapper mapperPrice = new ObjectMapper();
-		String jsonPrice = mapperPrice.writeValueAsString(priceJSON);
-		session.setAttribute("jsonPrice", jsonPrice);
-		System.out.println("Price"+jsonPrice);
+//		ObjectMapper mapperPrice = new ObjectMapper();
+//		String jsonPrice = mapperPrice.writeValueAsString(priceJSON);
+		request.setAttribute("jsonPrice", priceJSON);
+//		System.out.println("Price"+jsonPrice);
 		
 		return "ApartmentManagement";
 	}
 	
 	//账目管理界面
 	@GetMapping("/AccountOfPerDay")
-	public String AccountOfPerDay(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+	public String AccountOfPerDay(HttpServletRequest request) {
 		LOG.info("front/AccountOfPerDay...");
 		//开出的发票数量
 		int numOfBill = customerServiceimpl.getNumOfBillPerDay();
@@ -273,7 +265,7 @@ public class FrontController {
 		List<Bill> billList = billServiceimpl.getBillPerDay();
 
 		MyClass.mergenceOfTotalConsumptionPerCustomer(billList,priceList,jsonCharge);
-		session.setAttribute("billList", billList);
+		request.setAttribute("billList", billList);
 		System.out.println("billList:"+billList);
 		
 		return "AccountOfPerDay";
@@ -281,7 +273,8 @@ public class FrontController {
 	
 	//账目管理界面编辑其他消费并计算消费额
 	@PostMapping("/doAccounts")
-	public String doAccounts(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
+	@ResponseBody
+	public String doAccounts(HttpServletRequest request) {
 		LOG.info("front/doAccounts...");
 		Bill bill = new Bill();
 		
@@ -360,8 +353,8 @@ public class FrontController {
 		JSONObject billJSONObject = JSONObject.fromObject(jsonBill);
 		
 //		System.out.println("billJSONObject:"+billJSONObject);
-		response.getWriter().print(billJSONObject);
-		return null;
+//		response.getWriter().print(billJSONObject);
+		return billJSONObject.toString();
 		
 	}
 	
