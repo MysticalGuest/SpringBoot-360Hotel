@@ -45,18 +45,18 @@ public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
 	 	}
 	}
 
-//	// 拦截于方法成功返回后，视图渲染前，可以进行成功返回的日志记录
-//	@Override
-//	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-//			throws Exception {
-//		super.afterCompletion(request, response, handler, ex);
-//	}
-//
-//	// 拦截于方法成功返回后，视图渲染前，可以对modelAndView进行操作
-//	@Override
-//	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-//			ModelAndView modelAndView) throws Exception {
-//		super.postHandle(request, response, handler, modelAndView);
-//	}
+	// 拦截于方法成功返回后，视图渲染前，可以进行成功返回的日志记录
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		super.afterCompletion(request, response, handler, ex);
+	}
+
+	// 拦截于方法成功返回后，视图渲染前，可以对modelAndView进行操作
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		super.postHandle(request, response, handler, modelAndView);
+	}
 
 }
