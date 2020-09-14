@@ -15,13 +15,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
 	
 	<link rel="stylesheet" type="text/css" href="css/bill-button.css"/>
-	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
 	
-	<script type="text/javascript" src="easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
+	
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
   
 	<body>
