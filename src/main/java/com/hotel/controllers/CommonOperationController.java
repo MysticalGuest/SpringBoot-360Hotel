@@ -17,8 +17,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hotel.custommethods.MyClass;
 import com.hotel.entity.Apartment;
@@ -50,7 +53,7 @@ public class CommonOperationController {
 	private ExpenseServiceImpl expenseServiceimpl;
 	
 	//顾客信息统计界面搜索功能
-	@RequestMapping(value="/SearchCustomerInfo",method = RequestMethod.POST)
+	@PostMapping("/SearchCustomerInfo")
 	public String SearchCustomerInfo(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ParseException, IOException{
 		LOG.info("commonOperation/SearchCustomerInfo...");
 		Customer customer = new Customer();
@@ -70,7 +73,7 @@ public class CommonOperationController {
 	}
 	
 	//顾客信息统计界面显示全部功能
-	@RequestMapping(value="/ShowAllCustomerInfo",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
+	@PostMapping("/ShowAllCustomerInfo")
 	public String ShowAllCustomerInfo(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ParseException, IOException{
 		LOG.info("commonOperation/ShowAllCustomerInfo...");
 		List<Customer> customerList = customerServiceimpl.getAllCustomer();
@@ -79,25 +82,26 @@ public class CommonOperationController {
 	}
 	
 	//客房管理搜索操作和显示全部操作
-	@RequestMapping(value="/SearchApartmentManagement",method = RequestMethod.POST,produces="text/plain;charset=UTF-8")
+	@PostMapping("/SearchApartmentManagement")
 	public String SearchApartmentManagement(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
 		LOG.info("commonOperation/SearchApartmentManagement...");
 		Apartment apartment = new Apartment();
 		String roomNum = request.getParameter("roomNum");
-		System.out.println("roomNum:"+roomNum);
+		
 		apartment.setroomNum(roomNum);
 		//getParameter("")方法返回值为String类型
 		String price = request.getParameter("price");
-		System.out.println("priceStr:"+price);
+		LOG.info("priceStr:"+price);
+		
 		if(!price.equals("")){
 			int aprice = Integer.parseInt(price);
-			System.out.println("price:"+price);
+
 			apartment.setPrice(aprice);
 		}
 		String state = request.getParameter("state");
 		if(state.equals("false")||state.equals("true")){
 			boolean booleanState = Boolean.parseBoolean(state); 
-			System.out.println("state:"+booleanState);
+
 			apartment.setState(booleanState);
 		}
 		System.out.println("stateStr:"+state);
@@ -131,8 +135,9 @@ public class CommonOperationController {
 	}
 	
 	//客房管理表格中的退房操作
-	@RequestMapping(value="/checkOut",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
-	public String checkOut(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+	@PostMapping("/checkOut")
+	@ResponseBody
+	public List<Apartment> checkOut(HttpServletRequest request) {
 		LOG.info("commonOperation/checkOut...");
 		Apartment thisapartment = new Apartment();
 		//区别前端界面是‘前台客房管理’还是‘管理员客房管理’
@@ -145,12 +150,12 @@ public class CommonOperationController {
 		apartmentServiceimpl.checkOut(thisapartment);
 		
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
-		response.getWriter().print(apartmentList);
-		return null;
+//		response.getWriter().print(apartmentList);
+		return apartmentList;
 	}
 	
 	//客房管理多选退房操作
-	@RequestMapping(value="/checkOutChecked",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
+	@PostMapping("/checkOutChecked")
 	public String checkOutChecked(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
 		LOG.info("checkOutChecked...");
 		//区别前端界面是‘前台客房管理’还是‘管理员客房管理’
@@ -173,7 +178,7 @@ public class CommonOperationController {
 	}
 	
 	//客房管理全部退房操作
-	@RequestMapping(value="/allCheckOut",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
+	@PostMapping("/allCheckOut")
 	public String allCheckOut(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
 		LOG.info("allCheckOut...");
 		//区别前端界面是‘前台客房管理’还是‘管理员客房管理’
@@ -188,7 +193,7 @@ public class CommonOperationController {
 	
 	//账目统计界面
 	@SuppressWarnings("deprecation")//为解决date.getDay()The method getDate() from the type Date is deprecated
-	@RequestMapping(value="/Statistics",method = RequestMethod.GET)
+	@GetMapping("/Statistics")
 	public String Statistics(HttpServletRequest request,HttpSession session) throws ParseException {
 		LOG.info("commonOperation/Statistics...");
 		Object flag = session.getAttribute("flag");
