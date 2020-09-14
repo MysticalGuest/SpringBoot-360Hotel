@@ -304,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		<script>
-			var jsondata=<%=session.getAttribute("billList")%>;
+			var jsondata=<%=request.getAttribute("billList")%>;
 			function pagerFilter(data){
 				if (typeof data.length == 'number' && typeof data.splice == 'function'){	// is array
 					data = {
