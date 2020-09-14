@@ -9,16 +9,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
+    
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
     <title>尊品360宾馆服务平台</title>
 	<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
 	<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
 	<link rel="stylesheet" type="text/css" href="css/home-style.css"/>
-	
-	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
-	<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		
   </head>
   
