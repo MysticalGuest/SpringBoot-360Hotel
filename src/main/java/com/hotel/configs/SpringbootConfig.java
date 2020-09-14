@@ -23,11 +23,11 @@ public class SpringbootConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 //		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/login");
-		registry.addInterceptor(checkLoginInterceptor).excludePathPatterns("/login");
+//		registry.addInterceptor(checkLoginInterceptor).excludePathPatterns("/login");
 		// 前台所有界面拦截
-//		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/*");
+		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/front/*");
 		// 管理员所有界面拦截
-//		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/administrator/*");
+		registry.addInterceptor(checkLoginInterceptor).addPathPatterns("/administrator/*");
 	}
 	
 	@Bean
