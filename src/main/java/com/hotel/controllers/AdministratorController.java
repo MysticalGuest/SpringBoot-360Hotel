@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,15 +71,15 @@ public class AdministratorController {
 	}
 	
 	//首页
-	@RequestMapping(value="/HomeForAdm",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
+	@GetMapping("/HomeForAdm")
 	public String HomeForAdm(HttpSession session) throws JsonProcessingException{
 		LOG.info("administrator/HomeForAdm...");
 		return "HomeForAdm";
 	}
 	
-	//顾客信息管理界面接
-	@RequestMapping(value="/CustomerInfoForAdm",method = RequestMethod.GET)
-	public String CustomerInfoForAdm(HttpSession session) throws JsonProcessingException, ParseException{
+	//顾客信息管理界面
+	@GetMapping("/CustomerInfoForAdm")
+	public String CustomerInfoForAdm(HttpSession session) {
 		LOG.info("administrator/CustomerInfoForAdm...");
 		List<Customer> customerList = customerServiceimpl.getAllCustomer();
 		session.setAttribute("customerList", customerList);
@@ -86,7 +88,7 @@ public class AdministratorController {
 	
 	//顾客信息管理界面接收数据
 	@RequestMapping(value="/CustomerInfoForAdm",method = RequestMethod.POST)
-	public String CustomerInfoForAdmPOST(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ParseException, IOException{
+	public String CustomerInfoForAdmPOST(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
 		LOG.info("administrator/CustomerInfoForAdmPOST...");
 		Customer customer = new Customer();
 		String inTime = request.getParameter("datetime");
@@ -131,8 +133,8 @@ public class AdministratorController {
 	}
 	
 	//综合管理界面
-	@RequestMapping(value="/IntegratedManagement",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
-	public String FrontManagement(HttpServletRequest request,HttpSession session) throws JsonProcessingException{
+	@GetMapping("/IntegratedManagement")
+	public String FrontManagement(HttpServletRequest request,HttpSession session) {
 		LOG.info("administrator/IntegratedManagement...");
 		//front表格数据
 		List<Administrator> admList = administratorServiceimpl.getAllAdministrator();
@@ -151,7 +153,7 @@ public class AdministratorController {
 	
 	//综合管理界面,这个是前台formatSex(value,row,index)函数需要的后台映射方法，为了解决管理员在改变性别时,后台数据收到
 	//但改变后的数据前台界面未能及时收到的情况,用了这个方法用ajax实时接收数据
-	@RequestMapping(value="/IntegratedManagement",method = RequestMethod.POST,produces="text/plain;charset=UTF-8")
+	@PostMapping("/IntegratedManagement")
 	public String IntegratedManagementPOST(HttpSession session,HttpServletResponse response) throws IOException{
 		LOG.info("administrator/IntegratedManagementPOST...");
 		List<Administrator> admList = administratorServiceimpl.getAllAdministrator();
@@ -161,8 +163,9 @@ public class AdministratorController {
 	}
 	
 	//综合管理界面,表格左边栏,对钟点房价格进行编辑
-	@RequestMapping(value="/hourRoomPrice",method = RequestMethod.POST,produces="text/plain;charset=UTF-8")
-	public String hourRoomPrice(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws IOException{
+	@PostMapping("/hourRoomPrice")
+	@ResponseBody
+	public int hourRoomPrice(HttpServletRequest request,HttpServletResponse response) {
 		LOG.info("administrator/hourRoomPrice...");
 		Expense expense = new Expense();
 		String hourRoomPrice = request.getParameter("hourRoomPrice");
@@ -175,13 +178,12 @@ public class AdministratorController {
 		//再重新从数据库拿数据
 		int newhourRoomPrice = expenseServiceimpl.getHourRoom();
 		//传到前台
-		response.getWriter().print(newhourRoomPrice);
-		return null;
+		return newhourRoomPrice;
 	}
 	
 	//综合管理界面,编辑其他消费的价格
-	@RequestMapping(value="/ResetExpense",method = RequestMethod.POST,produces="text/plain;charset=UTF-8")
-	public String ResetExpense(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws IOException{
+	@PostMapping("/ResetExpense")
+	public List<Expense> ResetExpense(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws IOException{
 		LOG.info("administrator/ResetExpense...");
 		String kind = request.getParameter("kind");
 		System.out.println(kind);
@@ -197,13 +199,13 @@ public class AdministratorController {
 		
 		//expense表格数据
 		List<Expense> expenseList = expenseServiceimpl.getAllKinds();
-		response.getWriter().print(expenseList);
-		
-		return null;
+//		response.getWriter().print(expenseList);
+		return expenseList;
+//		return null;
 	}
 	
 	//客房管理界面
-	@RequestMapping(value="/ApartmentManageAdm",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
+	@GetMapping("/ApartmentManageAdm")
 	public String ApartmentManageAdm(HttpSession session) throws JsonProcessingException{
 		LOG.info("administrator/ApartmentManageAdm...");
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
@@ -228,7 +230,7 @@ public class AdministratorController {
 	}
 	
 	//客房管理界面多选修改房价操作
-	@RequestMapping(value="/resetPriceChecked",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
+	@PostMapping("/resetPriceChecked")
 	public String resetPriceChecked(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
 		LOG.info("administrator/resetPriceChecked...");
 		String strRoom = request.getParameter("strRoom");
@@ -252,7 +254,7 @@ public class AdministratorController {
 	}
 	
 	//客房管理界面重置房间价格操作
-	@RequestMapping(value="/ResetPrice",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
+	@PostMapping("/ResetPrice")
 	public String ResetPrice(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
 		LOG.info("administrator/ResetPrice...");
 		Apartment thisapartment = new Apartment();
@@ -272,7 +274,7 @@ public class AdministratorController {
 	}
 	
 	//前台管理界面修改前台信息操作
-	@RequestMapping(value="/ResetFrontInfo",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
+	@PostMapping("/ResetFrontInfo")
 	public String ResetFrontInfo(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
 		LOG.info("administrator/ResetFrontInfo...");
 		Administrator thisadministrator = new Administrator();
@@ -300,7 +302,8 @@ public class AdministratorController {
 	
 	//账目详计页面
 	@RequestMapping(value="/Account",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
-	public String Account(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException, ParseException{
+	@GetMapping()
+	public String Account(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		LOG.info("administrator/Account...");
 		
 		/***********************
@@ -400,11 +403,11 @@ public class AdministratorController {
 		return "Account";
 	}
 	
-	//账目统计界面
-	@RequestMapping(value="/Statistics",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
-	public String Statistics(HttpSession session) throws JsonProcessingException{
+	// 账目统计界面
+	@GetMapping("/Statistics")
+	public String Statistics(HttpSession session) {
 		LOG.info("administrator/Statistics...");
-		//定向到CommonOperationController层
+		// 定向到CommonOperationController层
 		session.setAttribute("flag", "administrator");
 		return "redirect:../commonOperation/Statistics";
 	}
