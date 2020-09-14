@@ -70,25 +70,26 @@ public class AdministratorController {
 		return "hello";
 	}
 	
-	//首页
+	// 首页
 	@GetMapping("/HomeForAdm")
-	public String HomeForAdm(HttpSession session) throws JsonProcessingException{
+	public String HomeForAdm() {
 		LOG.info("administrator/HomeForAdm...");
 		return "HomeForAdm";
 	}
 	
-	//顾客信息管理界面
+	// 顾客信息管理界面
 	@GetMapping("/CustomerInfoForAdm")
-	public String CustomerInfoForAdm(HttpSession session) {
+	public String CustomerInfoForAdm(HttpServletRequest request) {
 		LOG.info("administrator/CustomerInfoForAdm...");
 		List<Customer> customerList = customerServiceimpl.getAllCustomer();
-		session.setAttribute("customerList", customerList);
+		request.setAttribute("customerList", customerList);
 		return "CustomerInfoForAdm";
 	}
 	
-	//顾客信息管理界面接收数据
-	@RequestMapping(value="/CustomerInfoForAdm",method = RequestMethod.POST)
-	public String CustomerInfoForAdmPOST(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+	// 顾客信息管理界面接收数据
+	@RequestMapping(value="/CustomerInfoForAdm", method = RequestMethod.POST)
+	@ResponseBody
+	public String CustomerInfoForAdmPOST(HttpServletRequest request) {
 		LOG.info("administrator/CustomerInfoForAdmPOST...");
 		Customer customer = new Customer();
 		String inTime = request.getParameter("datetime");
@@ -102,22 +103,22 @@ public class AdministratorController {
 		customer.setroomNum(roomNum);
 		
 		List<Customer> customerList = customerServiceimpl.doSearch(customer);
-		response.getWriter().print(customerList);
-		System.out.println(customerList);
-		return null;
+
+		return customerList.toString();
 	}
 	
-	//管理员顾客信息统计界面删除选中功能
-	@RequestMapping(value="/deleteChecked",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
-	public String deleteChecked(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException, ParseException {
+	// 管理员顾客信息统计界面删除选中功能
+	@PostMapping("/deleteChecked")
+	@ResponseBody
+	public String deleteChecked(HttpServletRequest request) {
 		LOG.info("administrator/deleteChecked...");
 		String strInTime = request.getParameter("strInTime");
-		System.out.println(strInTime);
+
 		String[] strInTimeArray = strInTime.split(","); // 用,分割
 		for(String inTime:strInTimeArray){
-			System.out.println(strInTime);
+
 			LOG.info("Delete...");
-			//bill表的inTime是customer的外键，所以先删bill表的inTime
+			// bill表的inTime是customer的外键，所以先删bill表的inTime
 			Bill bill = new Bill();
 			bill.setInTime(inTime);
 			billServiceimpl.delete(bill);
@@ -128,69 +129,67 @@ public class AdministratorController {
 		}
 		
 		List<Customer> customerList = customerServiceimpl.getAllCustomer();
-		response.getWriter().print(customerList);
-		return null;
+		return customerList.toString();
 	}
 	
-	//综合管理界面
+	// 综合管理界面
 	@GetMapping("/IntegratedManagement")
-	public String FrontManagement(HttpServletRequest request,HttpSession session) {
+	public String FrontManagement(HttpServletRequest request) {
 		LOG.info("administrator/IntegratedManagement...");
-		//front表格数据
+		// front表格数据
 		List<Administrator> admList = administratorServiceimpl.getAllAdministrator();
-		session.setAttribute("admList", admList);
-		//钟点房价格
+		request.setAttribute("admList", admList);
+		// 钟点房价格
 		int hourRoomPrice = expenseServiceimpl.getHourRoom();
-		System.out.println("hourRoomPrice:"+hourRoomPrice);
+
 		request.setAttribute("hourRoomPrice", hourRoomPrice);
 		
-		//expense表格数据
+		// expense表格数据
 		List<Expense> expenseList = expenseServiceimpl.getAllKinds();
-		session.setAttribute("expenseList", expenseList);
-		System.out.println("expenseList:"+expenseList);
+		request.setAttribute("expenseList", expenseList);
+
 		return "IntegratedManagement";
 	}
 	
-	//综合管理界面,这个是前台formatSex(value,row,index)函数需要的后台映射方法，为了解决管理员在改变性别时,后台数据收到
-	//但改变后的数据前台界面未能及时收到的情况,用了这个方法用ajax实时接收数据
+	// 综合管理界面,这个是前台formatSex(value,row,index)函数需要的后台映射方法，为了解决管理员在改变性别时,后台数据收到
+	// 但改变后的数据前台界面未能及时收到的情况,用了这个方法用ajax实时接收数据
 	@PostMapping("/IntegratedManagement")
-	public String IntegratedManagementPOST(HttpSession session,HttpServletResponse response) throws IOException{
+	@ResponseBody
+	public String IntegratedManagementPOST() {
 		LOG.info("administrator/IntegratedManagementPOST...");
 		List<Administrator> admList = administratorServiceimpl.getAllAdministrator();
-		response.getWriter().print(admList);
-		System.out.println(admList);
-		return null;
+
+		return admList.toString();
 	}
-	
-	//综合管理界面,表格左边栏,对钟点房价格进行编辑
+
+	// 综合管理界面,表格左边栏,对钟点房价格进行编辑
 	@PostMapping("/hourRoomPrice")
 	@ResponseBody
-	public int hourRoomPrice(HttpServletRequest request,HttpServletResponse response) {
+	public int hourRoomPrice(HttpServletRequest request) {
 		LOG.info("administrator/hourRoomPrice...");
 		Expense expense = new Expense();
 		String hourRoomPrice = request.getParameter("hourRoomPrice");
 		int aprice = Integer.parseInt(hourRoomPrice);
-		System.out.println("aprice:"+aprice);
+
 		expense.setPrice(aprice);
 		
-		//更改价格
+		// 更改价格
 		expenseServiceimpl.updateHourRoomPrice(expense);
-		//再重新从数据库拿数据
+		// 再重新从数据库拿数据
 		int newhourRoomPrice = expenseServiceimpl.getHourRoom();
-		//传到前台
+		// 传到前台
 		return newhourRoomPrice;
 	}
 	
 	//综合管理界面,编辑其他消费的价格
 	@PostMapping("/ResetExpense")
-	public List<Expense> ResetExpense(HttpServletRequest request,HttpSession session,HttpServletResponse response) throws IOException{
+	@ResponseBody
+	public List<Expense> ResetExpense(HttpServletRequest request) {
 		LOG.info("administrator/ResetExpense...");
 		String kind = request.getParameter("kind");
-		System.out.println(kind);
 		
 		String price = request.getParameter("price");
 		int aprice = Integer.parseInt(price);
-		System.out.println(price);
 		
 		Expense expense = new Expense();
 		expense.setKinds(kind);
@@ -199,20 +198,20 @@ public class AdministratorController {
 		
 		//expense表格数据
 		List<Expense> expenseList = expenseServiceimpl.getAllKinds();
-//		response.getWriter().print(expenseList);
+
 		return expenseList;
-//		return null;
+
 	}
 	
-	//客房管理界面
+	// 客房管理界面
 	@GetMapping("/ApartmentManageAdm")
-	public String ApartmentManageAdm(HttpSession session) throws JsonProcessingException{
+	public String ApartmentManageAdm(HttpServletRequest request) {
 		LOG.info("administrator/ApartmentManageAdm...");
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
-		session.setAttribute("apartmentList", apartmentList);
-		System.out.println("apartmentList:"+apartmentList);
+		request.setAttribute("apartmentList", apartmentList);
+//		System.out.println("apartmentList:"+apartmentList);
 		
-		//房价搜索框
+		// 房价搜索框
 		List<Apartment> priceList = apartmentServiceimpl.getPrice();
 		List<JSONObject> priceJSON = new ArrayList<JSONObject>();
 		
@@ -222,10 +221,11 @@ public class AdministratorController {
 			aPrice.put("num",i+1);
 			priceJSON.add(aPrice);
 		}
-		ObjectMapper mapperPrice = new ObjectMapper();
-		String jsonPrice = mapperPrice.writeValueAsString(priceJSON);
-		session.setAttribute("jsonPrice", jsonPrice);
-		System.out.println("Price"+jsonPrice);
+//		ObjectMapper mapperPrice = new ObjectMapper();
+//		String jsonPrice = mapperPrice.writeValueAsString(priceJSON);
+//		System.out.println("priceJSON"+priceJSON);
+		request.setAttribute("jsonPrice", priceJSON);
+
 		return "ApartmentManageAdm";
 	}
 	
