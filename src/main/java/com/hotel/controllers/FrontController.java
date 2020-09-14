@@ -16,9 +16,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hotel.custommethods.MyClass;
 //import com.hotel.entity.Administrator;
@@ -59,15 +63,15 @@ public class FrontController {
 	private ExpenseServiceImpl expenseServiceimpl;
 	
 	//首页界面
-	@RequestMapping(value="/Home",produces="text/plain;charset=UTF-8",method = RequestMethod.GET)
+	@GetMapping("/Home")
 	public String Home(HttpSession session) throws JsonProcessingException{
 		LOG.info("front/Home...");
 		return "Home";
 	}
 	
 	//顾客信息管理界面
-	@RequestMapping(value="/CustomerInfoForFront",method = RequestMethod.GET)
-	public String CustomerInfoForFront(HttpServletRequest request,HttpSession session) throws JsonProcessingException, ParseException{
+	@GetMapping("/CustomerInfoForFront")
+	public String CustomerInfoForFront(HttpServletRequest request,HttpSession session) {
 		LOG.info("front/CustomerInfoForFront...");
 		List<Customer> customerList = customerServiceimpl.getAllCustomer();
 		session.setAttribute("customerList", customerList);
@@ -76,8 +80,8 @@ public class FrontController {
 	}
 	
 	//打印发票界面
-	@RequestMapping(value="/Bill",method = RequestMethod.GET)
-	public String Bill(HttpServletRequest request,HttpSession session) throws JsonProcessingException{
+	@GetMapping("/Bill")
+	public String Bill(HttpServletRequest request,HttpSession session) {
 		LOG.info("front/Bill...");
 		//房号下拉框
 		List<Apartment> apartmentList = apartmentServiceimpl.getSpareApartment();
@@ -90,7 +94,8 @@ public class FrontController {
 	}
 	
 	//发票打印后接收前台数据数据
-	@RequestMapping(value="/Bill",method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
+	@PostMapping("/Bill")
+//	@ResponseBody
 	public String BillPOST(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
 		LOG.info("front/BillPOST...");
 		Customer customer = new Customer();
@@ -157,12 +162,13 @@ public class FrontController {
 		//房号树形下拉框
 		apartmentList = apartmentServiceimpl.getSpareApartment();
 		response.getWriter().print(apartmentList);
+//		request.setAttribute("apartmentList", apartmentList);
 		return null;
 	}
 	
 	//客房管理界面
-	@RequestMapping(value="/ApartmentManagement",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
-	public String ApartmentManagement(HttpSession session) throws JsonProcessingException{
+	@GetMapping("/ApartmentManagement")
+	public String ApartmentManagement(HttpSession session) throws JsonProcessingException {
 		LOG.info("front/ApartmentManagement...");
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
 		session.setAttribute("apartmentList", apartmentList);
@@ -187,8 +193,8 @@ public class FrontController {
 	}
 	
 	//账目管理界面
-	@RequestMapping(value="/AccountOfPerDay",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
-	public String AccountOfPerDay(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException, ParseException{
+	@GetMapping("/AccountOfPerDay")
+	public String AccountOfPerDay(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		LOG.info("front/AccountOfPerDay...");
 		//开出的发票数量
 		int numOfBill = customerServiceimpl.getNumOfBillPerDay();
@@ -270,12 +276,11 @@ public class FrontController {
 		session.setAttribute("billList", billList);
 		System.out.println("billList:"+billList);
 		
-		
 		return "AccountOfPerDay";
 	}
 	
 	//账目管理界面编辑其他消费并计算消费额
-	@RequestMapping(value="/doAccounts",method = RequestMethod.POST)
+	@PostMapping("/doAccounts")
 	public String doAccounts(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException{
 		LOG.info("front/doAccounts...");
 		Bill bill = new Bill();
@@ -360,11 +365,11 @@ public class FrontController {
 		
 	}
 	
-	//账目统计界面
-	@RequestMapping(value="/Statistics",method = RequestMethod.GET,produces="text/plain;charset=UTF-8")
-	public String Statistics(HttpSession session) throws JsonProcessingException{
+	// 账目统计界面
+	@GetMapping("/Statistics")
+	public String Statistics(HttpSession session) {
 		LOG.info("front/Statistics...");
-		//定向到CommonOperationController层
+		// 定向到CommonOperationController层
 		session.setAttribute("flag", "front");
 		return "redirect:../commonOperation/Statistics";
 	}
