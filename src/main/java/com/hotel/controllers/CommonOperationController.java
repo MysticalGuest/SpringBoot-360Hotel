@@ -1,6 +1,5 @@
 package com.hotel.controllers;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hotel.custommethods.MyClass;
@@ -187,7 +184,7 @@ public class CommonOperationController {
 		LOG.info("allCheckOut...");
 		// 区别前端界面是‘前台客房管理’还是‘管理员客房管理’
 		String flag = request.getParameter("flag");
-//		System.out.println(flag);
+		System.out.println(flag);
 		apartmentServiceimpl.allCheckOut();
 		
 		List<Apartment> apartmentList = apartmentServiceimpl.getAllApartment();
@@ -196,7 +193,7 @@ public class CommonOperationController {
 	}
 	
 	// 账目统计界面
-	@SuppressWarnings("deprecation")// 为解决date.getDay()The method getDate() from the type Date is deprecated
+	@SuppressWarnings({ "deprecation", "unlikely-arg-type" })// 为解决date.getDay()The method getDate() from the type Date is deprecated
 	@GetMapping("/Statistics")
 	public String Statistics(HttpServletRequest request,HttpSession session) throws ParseException {
 		LOG.info("commonOperation/Statistics...");
