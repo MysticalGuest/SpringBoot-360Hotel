@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<script>
 			//房价树形下拉框-
-			var dataPrice='<%=session.getAttribute("jsonPrice")%>';
+			var dataPrice='<%=request.getAttribute("jsonPrice")%>';
 			price= JSON.parse(dataPrice);
 			$(function(){
 				$("#price").combogrid({
@@ -504,7 +504,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				function getData(){
 					var state='';
 					var rows = [];
-					var data=<%=session.getAttribute("apartmentList")%>;
+					var data=<%=request.getAttribute("apartmentList")%>;
 					for(var i=0; i<data.length; i++){
 						if(data[i].state==false)
 							state="未开出";
