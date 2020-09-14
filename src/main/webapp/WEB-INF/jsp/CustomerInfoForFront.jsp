@@ -11,11 +11,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<base href="<%=basePath%>">
 		<meta http-equiv="content-type" content="text/html" charset="utf-8">
 		<title>尊品360宾馆管理系统</title>
+		
 		<link rel="shortcut icon" href="img/fire.ico"  type="image/x-icon"/>
 		<link rel="stylesheet" type="text/css" href="css/font-style.css"/>
 		<link rel="stylesheet" type="text/css" href="css/customer-info-style.css"/>
+		
 		<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/default/easyui.css">
 		<link rel="stylesheet" type="text/css" href="webjars/jquery-easyui/themes/icon.css">
+		
 		<script type="text/javascript" src="webjars/jquery-easyui/jquery.min.js"></script>
 		<script type="text/javascript" src="webjars/jquery-easyui/jquery.easyui.min.js"></script>
 		<script type="text/javascript" src="webjars/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -62,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var cName=document.getElementById('cName').value;
 				var roomNum=document.getElementById('roomNum').value;
 				$.ajax({
-					url: '../DistinguishedQuality360Hotel/commonOperation/SearchCustomerInfo',
+					url: 'commonOperation/SearchCustomerInfo',
 					type: 'post',
 					data: {'datetime':datetime,'cName':cName,'roomNum':roomNum},
 					dataType:'json',
@@ -74,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					error:function(xhr,type,errorThrown){
 						$.messager.alert('提示','搜索失败！','info',
-							function(){location.href='../DistinguishedQuality360Hotel/front/CustomerInfoForFront'});
+							function(){location.href='front/CustomerInfoForFront'});
 						console.log(errorThrown);
 					}
 				});
@@ -87,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$(" #cName").val("");
 				$(" #roomNum").val("");
 				$.ajax({
-					url: '../DistinguishedQuality360Hotel/commonOperation/ShowAllCustomerInfo',
+					url: 'commonOperation/ShowAllCustomerInfo',
 					data: {},
 					dataType:'json',//服务器返回json格式数据
 					type:'post',//HTTP请求类型
@@ -100,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					error:function(xhr,type,errorThrown){
 						$.messager.alert('提示','显示失败！','info',
-							function(){location.href='../DistinguishedQuality360Hotel/front/CustomerInfoForFront'});
+							function(){location.href='front/CustomerInfoForFront'});
 						console.log(errorThrown);
 					}
 				});
