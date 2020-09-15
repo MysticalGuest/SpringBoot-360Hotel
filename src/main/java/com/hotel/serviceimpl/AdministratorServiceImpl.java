@@ -11,6 +11,7 @@ import com.hotel.service.IAdministratorService;
 
 @Service // 标记当前类是service
 public class AdministratorServiceImpl implements IAdministratorService {
+	
 	@Autowired
 	private AdministratorDao administratorDao;
 
