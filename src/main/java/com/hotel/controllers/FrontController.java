@@ -89,7 +89,7 @@ public class FrontController {
 	//发票打印后接收前台数据数据
 	@PostMapping("/Bill")
 	@ResponseBody
-	public List<Apartment> BillPOST(HttpServletRequest request) {
+	public String BillPOST(HttpServletRequest request) {
 		LOG.info("front/BillPOST...");
 		Customer customer = new Customer();
 		//获取当前时间
@@ -155,7 +155,7 @@ public class FrontController {
 		// 房号树形下拉框
 		apartmentList = apartmentServiceimpl.getSpareApartment();
 
-		return apartmentList;
+		return apartmentList.toString();
 	}
 	
 	// 客房管理界面
