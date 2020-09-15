@@ -16,6 +16,7 @@ import com.hotel.interceptors.CheckLoginInterceptor;
 
 @Configuration
 public class SpringbootConfig extends WebMvcConfigurerAdapter {
+	
 	@Autowired
 	private CheckLoginInterceptor checkLoginInterceptor;
 
