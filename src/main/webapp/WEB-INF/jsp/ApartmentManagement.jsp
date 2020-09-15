@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					//将搜索框的输入清空,还原input的状态
 					$(" #roomNum").val("");
 					var state = $("input[name=state]");
-					state.attr("checked",false);
+					state.attr("checked", false);
 					$("#price").combogrid("setValue","");
 					
 					$.ajax({
